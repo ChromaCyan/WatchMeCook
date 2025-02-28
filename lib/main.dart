@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:watchmecook/screens/home_screen.dart';
 import 'screens/anime/anime_list.dart'; 
 
 void main() {
@@ -17,7 +18,7 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
       debugShowCheckedModeBanner: false,
-      home: AnimeScreen(), 
+      home: HomeScreen(), 
     );
   }
 }
