@@ -1,4 +1,5 @@
 class Anime {
+  final int id;
   final String title;
   final String? titleEnglish;
   final String? titleJapanese;
@@ -9,6 +10,7 @@ class Anime {
   final List<String> genres;
 
   Anime({
+    required this.id,  // Add this field
     required this.title,
     this.titleEnglish,
     this.titleJapanese,
@@ -21,6 +23,7 @@ class Anime {
 
   factory Anime.fromJson(Map<String, dynamic> json) {
     return Anime(
+      id: json['mal_id'],  // Assuming 'mal_id' is the identifier
       title: json['title'] ?? '',
       titleEnglish: json['title_english'],
       titleJapanese: json['title_japanese'],

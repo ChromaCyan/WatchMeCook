@@ -121,13 +121,11 @@ class _HomeScreenState extends State<HomeScreen> {
   String _getDynamicTitle() {
     switch (_selectedIndex) {
       case 0:
-        return 'Dashboard';
+        return 'Bogart Aniwave';
       case 1:
-        return 'Anime';
+        return 'Motivational Quote';
       case 2:
-        return 'Quotes';
-      case 3:
-        return 'Cooking Recipes';
+        return 'Who let him cook?';
       default:
         return 'Home';
     }

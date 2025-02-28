@@ -10,9 +10,9 @@ class ApiService {
   /////////////////////////////////////////////////////////////////////////////////////
   // Anime API
 
-   // Fetch Random Anime
+  // Fetch Random Anime
   static Future<Anime> fetchRandomAnime() async {
-    final response = await http.get(Uri.parse("$baseUrl/random/anime"));
+    final response = await http.get(Uri.parse("$baseUrl/anime/random"));
     if (response.statusCode == 200) {
       final jsonResponse = jsonDecode(response.body);
       return Anime.fromJson(jsonResponse['data']);
@@ -35,7 +35,7 @@ class ApiService {
 
   // Search Anime by Title
   static Future<List<Anime>> searchAnime(String title) async {
-    final response = await http.get(Uri.parse("$baseUrl/anime?q=$title"));
+    final response = await http.get(Uri.parse("$baseUrl/anime/search/$title"));
     if (response.statusCode == 200) {
       final jsonResponse = jsonDecode(response.body);
       List<dynamic> animeList = jsonResponse['data'];
@@ -45,9 +45,19 @@ class ApiService {
     }
   }
 
+  // Fetch anime details by ID
+  static Future<Anime> fetchAnimeById(int id) async {
+    final response = await http.get(Uri.parse("$baseUrl/anime/$id"));
+    if (response.statusCode == 200) {
+      final jsonResponse = jsonDecode(response.body);
+      return Anime.fromJson(jsonResponse['data']);
+    } else {
+      throw Exception("Failed to load anime details");
+    }
+  }
   /////////////////////////////////////////////////////////////////////////////////////
   // Quote API
-  
+
   // Fetch Random Quote
   static Future<Quote> fetchRandomQuote() async {
     final response = await http.get(Uri.parse("$baseUrl/quotes/random"));
@@ -70,7 +80,8 @@ class ApiService {
 
   // Fetch Quotes by Author
   static Future<List<Quote>> fetchQuotesByAuthor(String author) async {
-    final response = await http.get(Uri.parse("$baseUrl/quotes/author/$author"));
+    final response =
+        await http.get(Uri.parse("$baseUrl/quotes/author/$author"));
     if (response.statusCode == 200) {
       List<dynamic> data = jsonDecode(response.body);
       return data.map((quote) => Quote.fromJson(quote)).toList();
@@ -94,7 +105,8 @@ class ApiService {
 
   // Fetch Meals by Category
   static Future<List<Meal>> fetchMealsByCategory(String category) async {
-    final response = await http.get(Uri.parse("$baseUrl/meals/category/$category"));
+    final response =
+        await http.get(Uri.parse("$baseUrl/meals/category/$category"));
     if (response.statusCode == 200) {
       List<dynamic> data = jsonDecode(response.body)["meals"];
       return data.map((meal) => Meal.fromJson(meal)).toList();
