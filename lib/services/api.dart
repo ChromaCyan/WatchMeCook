@@ -5,7 +5,7 @@ import 'package:watchmecook/models/quote_model.dart';
 import 'package:watchmecook/models/anime_model.dart';
 
 class ApiService {
-  static const String baseUrl = "http://127.0.0.1:5000";
+  static const String baseUrl = "https://my-motivation-playlist-cooking-a-production.up.railway.app";
 
   /////////////////////////////////////////////////////////////////////////////////////
   // Anime API

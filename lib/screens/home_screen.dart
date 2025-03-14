@@ -55,11 +55,11 @@ class _HomeScreenState extends State<HomeScreen> {
             padding: const EdgeInsets.only(top: 20.0, left: 5, right: 5),
             child: Container(
               decoration: BoxDecoration(
-                color: theme.cardColor,
+                color: theme.colorScheme.surface,
                 borderRadius: BorderRadius.circular(20),
                 boxShadow: [
                   BoxShadow(
-                    color: Colors.black.withOpacity(0.1),
+                    color: theme.shadowColor.withOpacity(0.1),
                     blurRadius: 10,
                     offset: const Offset(0, 4),
                   ),
@@ -79,15 +79,13 @@ class _HomeScreenState extends State<HomeScreen> {
                     key: ValueKey<int>(_selectedIndex),
                     style: theme.textTheme.headlineMedium?.copyWith(
                       fontWeight: FontWeight.bold,
-                      color:
-                          theme.textTheme.headlineMedium?.color ?? Colors.black,
+                      color: theme.colorScheme.onSurface,
                     ),
                     textAlign: TextAlign.center,
                   ),
                 ),
                 centerTitle: true,
-                actions: [
-                ],
+                actions: [],
               ),
             ),
           ),
@@ -102,8 +100,7 @@ class _HomeScreenState extends State<HomeScreen> {
             },
             children: [
               AnimeScreen(),
-              //DiscoverScreen(),
-              //DiscoverScreen(),
+              // Add other screens here as needed
             ],
           ),
         ),

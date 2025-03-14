@@ -22,38 +22,51 @@ class _AnimeDetailsScreenState extends State<AnimeDetailsScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    
     return Scaffold(
       appBar: AppBar(
-        title: Text('Anime Details'),
-        backgroundColor: Colors.deepPurple,
+        title: const Text('Anime Details'),
+        backgroundColor: theme.colorScheme.primary,
       ),
       body: FutureBuilder<Anime>(
         future: _animeDetails,
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(child: CircularProgressIndicator());
+            return const Center(child: CircularProgressIndicator());
           }
 
           if (snapshot.hasError) {
-            return Center(child: Text('Failed to load anime details: ${snapshot.error}'));
+            return Center(
+              child: Text(
+                'Failed to load anime details: ${snapshot.error}',
+                style: theme.textTheme.bodyLarge?.copyWith(color: theme.colorScheme.error),
+              ),
+            );
           }
 
           if (!snapshot.hasData) {
-            return Center(child: Text('No details available'));
+            return Center(
+              child: Text(
+                'No details available',
+                style: theme.textTheme.bodyLarge,
+              ),
+            );
           }
 
           final anime = snapshot.data!;
           return ListView(
-            padding: EdgeInsets.all(8.0),
+            padding: const EdgeInsets.all(8.0),
             children: [
               // Gradient Background and Anime Image
               Container(
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
-                    colors: [Colors.purpleAccent, Colors.deepPurple],
+                    colors: [theme.colorScheme.primary, theme.colorScheme.secondary],
                     begin: Alignment.topLeft,
                     end: Alignment.bottomRight,
                   ),
+                  borderRadius: BorderRadius.circular(12),
                 ),
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(12),
@@ -65,25 +78,25 @@ class _AnimeDetailsScreenState extends State<AnimeDetailsScreen> {
                   ),
                 ),
               ),
-              SizedBox(height: 16),
+              const SizedBox(height: 16),
 
               // Anime Title
               Text(
                 anime.title ?? 'No title available',
-                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold,),
+                style: theme.textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.bold),
               ),
-              SizedBox(height: 8),
+              const SizedBox(height: 8),
 
               // Anime Synopsis
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 8.0),
                 child: Text(
                   anime.synopsis ?? 'No synopsis available',
-                  style: TextStyle(fontSize: 16,),
+                  style: theme.textTheme.bodyLarge,
                   textAlign: TextAlign.justify,
                 ),
               ),
-              SizedBox(height: 16),
+              const SizedBox(height: 16),
 
               // Score and Genres
               Row(
@@ -91,28 +104,36 @@ class _AnimeDetailsScreenState extends State<AnimeDetailsScreen> {
                 children: [
                   Text(
                     'Score: ${anime.score ?? 'N/A'}',
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold,),
+                    style: theme.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
                   ),
                   Wrap(
+                    spacing: 6.0,
                     children: anime.genres
-                        .map((genre) => Chip(label: Text(genre, style: TextStyle())))
+                        .map(
+                          (genre) => Chip(
+                            label: Text(
+                              genre,
+                              style: theme.textTheme.bodyMedium?.copyWith(color: theme.colorScheme.onPrimary),
+                            ),
+                            backgroundColor: theme.colorScheme.primary,
+                          ),
+                        )
                         .toList(),
                   ),
                 ],
               ),
-              SizedBox(height: 16),
+              const SizedBox(height: 16),
 
-              // More Details (Optional: Add more fields like airing status, background, etc.)
-              anime.background != null
-                  ? Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text(
-                        anime.background!,
-                        style: TextStyle(fontSize: 14,),
-                        textAlign: TextAlign.justify,
-                      ),
-                    )
-                  : Container(),
+              // Background Info (if available)
+              if (anime.background != null)
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(
+                    anime.background!,
+                    style: theme.textTheme.bodyMedium,
+                    textAlign: TextAlign.justify,
+                  ),
+                ),
             ],
           );
         },
