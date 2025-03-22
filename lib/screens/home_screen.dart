@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:watchmecook/models/nav_cubit.dart';
 import 'package:watchmecook/screens/anime/anime_list.dart';
-import 'package:watchmecook/screens/quote/quote_list.dart';
+import 'package:watchmecook/screens/youtube/youtube_list.dart';
 import 'package:watchmecook/screens/recipe/recipe_list.dart';
 import 'package:watchmecook/widgets/navigation/nav_bar.dart';
 
@@ -102,7 +102,7 @@ class _HomeScreenState extends State<HomeScreen> {
             },
             children: [
               AnimeScreen(),
-              QuoteListScreen(),
+              PlaylistScreen(),
               MealListScreen(),
             ],
           ),
@@ -123,7 +123,7 @@ class _HomeScreenState extends State<HomeScreen> {
       case 0:
         return 'Bogart Aniwave';
       case 1:
-        return 'Motivational Quote';
+        return 'My Shitty Playlist';
       case 2:
         return 'Who let him cook?';
       default:

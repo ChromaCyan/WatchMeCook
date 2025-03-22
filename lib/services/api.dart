@@ -3,6 +3,8 @@ import 'package:http/http.dart' as http;
 import 'package:watchmecook/models/meal_model.dart';
 import 'package:watchmecook/models/quote_model.dart';
 import 'package:watchmecook/models/anime_model.dart';
+import 'package:watchmecook/models/youtube_channel.dart';
+import 'package:watchmecook/models/youtube_model.dart';
 
 class ApiService {
   static const String baseUrl =
@@ -126,7 +128,7 @@ class ApiService {
       throw Exception("Failed to search meal");
     }
   }
-  
+
   // Fetch Full Meal Details by ID
   static Future<Meal> fetchMealById(String id) async {
     final response = await http.get(Uri.parse("$baseUrl/meals/detail/$id"));
@@ -136,6 +138,43 @@ class ApiService {
       return Meal.fromJson(data); // Return full meal details
     } else {
       throw Exception("Failed to load meal details");
+    }
+  }
+
+  // YouTube API
+
+// Fetch all playlist videos
+  static Future<List<Video>> fetchPlaylistVideos() async {
+    final response = await http.get(Uri.parse("$baseUrl/youtube/playlist"));
+    if (response.statusCode == 200) {
+      List<dynamic> data = jsonDecode(response.body)['items'];
+      return data.map((video) => Video.fromJson(video)).toList();
+    } else {
+      throw Exception("Failed to load playlist");
+    }
+  }
+
+// Fetch video details by video_id
+  static Future<Video> fetchVideoDetails(String videoId) async {
+    final response =
+        await http.get(Uri.parse("$baseUrl/youtube/video/$videoId"));
+    if (response.statusCode == 200) {
+      var data = jsonDecode(response.body)['items'][0];
+      return Video.fromJson(data);
+    } else {
+      throw Exception("Failed to load video details");
+    }
+  }
+
+// Fetch channel details by channel_id
+  static Future<Channel> fetchChannelDetails(String channelId) async {
+    final response =
+        await http.get(Uri.parse("$baseUrl/youtube/channel/$channelId"));
+    if (response.statusCode == 200) {
+      var data = jsonDecode(response.body)['items'][0];
+      return Channel.fromJson(data);
+    } else {
+      throw Exception("Failed to load channel details");
     }
   }
 }

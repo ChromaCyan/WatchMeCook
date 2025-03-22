@@ -47,8 +47,8 @@ class CustomBottomNavBar extends StatelessWidget {
               context,
               "Browse the latest anime and trending series"),
           _buildNavItem(
-              Icons.format_quote,
-              "Quotes",
+              Icons.featured_video_rounded,
+              "Playlist",
               1,
               colorScheme.primary,
               quotesKey,
