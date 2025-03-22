@@ -150,7 +150,7 @@ class _VideoDetailScreenState extends State<VideoDetailScreen> {
     );
   }
 
-  /// 🎥 Build Channel Card with Thumbnail & Button
+    /// 🎥 Build Channel Card with Thumbnail & Button
   Widget _buildChannelCard(Channel channel) {
     return GestureDetector(
       onTap: () {
@@ -171,6 +171,7 @@ class _VideoDetailScreenState extends State<VideoDetailScreen> {
         child: Padding(
           padding: const EdgeInsets.all(12),
           child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               /// 📸 Channel Thumbnail
               ClipRRect(
@@ -199,10 +200,12 @@ class _VideoDetailScreenState extends State<VideoDetailScreen> {
                     ),
                     const SizedBox(height: 4),
 
-                    /// 📝 Channel Description
+                    /// 📝 Full Channel Description (Fixed)
                     Text(
-                      channel.description,
-                      maxLines: 2,
+                      channel.description.isNotEmpty
+                          ? channel.description
+                          : 'No description available',
+                      maxLines: 3,
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(fontSize: 14, color: Colors.grey[700]),
                     ),
@@ -211,7 +214,7 @@ class _VideoDetailScreenState extends State<VideoDetailScreen> {
               ),
               const SizedBox(width: 8),
 
-              /// 🔗 View Button
+              /// ➡️ Navigation Icon
               Icon(Icons.chevron_right, color: Colors.grey[600]),
             ],
           ),

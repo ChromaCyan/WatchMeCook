@@ -20,10 +20,12 @@ class Video {
   factory Video.fromJson(Map<String, dynamic> json) {
   final snippet = json['snippet'] ?? {};
   final thumbnails = snippet['thumbnails'] ?? {};
-  final resourceId = snippet['resourceId'] ?? {}; // ✅ Correctly fetching resourceId
+
+  // ✅ Check if it's from playlist or direct video details
+  final videoId = json['id'] ?? snippet['resourceId']?['videoId'] ?? '';
 
   return Video(
-    id: resourceId['videoId'] ?? '', // ✅ Correct videoId path
+    id: videoId, // ✅ Handles both playlist and video responses
     title: snippet['title'] ?? 'No Title',
     description: snippet['description'] ?? 'No Description',
     thumbnailUrl: thumbnails['high']?['url'] ?? '', // ✅ Safer path for high-quality thumbnail
@@ -32,5 +34,6 @@ class Video {
     publishedAt: snippet['publishedAt'] ?? '',
   );
 }
+
 
 }
