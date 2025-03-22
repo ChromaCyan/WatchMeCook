@@ -5,7 +5,8 @@ import 'package:watchmecook/models/quote_model.dart';
 import 'package:watchmecook/models/anime_model.dart';
 
 class ApiService {
-  static const String baseUrl = "https://my-motivation-playlist-cooking-a-production.up.railway.app";
+  static const String baseUrl =
+      "https://my-motivation-playlist-cooking-a-production.up.railway.app";
 
   /////////////////////////////////////////////////////////////////////////////////////
   // Anime API
@@ -123,6 +124,18 @@ class ApiService {
       return data.map((meal) => Meal.fromJson(meal)).toList();
     } else {
       throw Exception("Failed to search meal");
+    }
+  }
+  
+  // Fetch Full Meal Details by ID
+  static Future<Meal> fetchMealById(String id) async {
+    final response = await http.get(Uri.parse("$baseUrl/meals/detail/$id"));
+
+    if (response.statusCode == 200) {
+      Map<String, dynamic> data = jsonDecode(response.body);
+      return Meal.fromJson(data); // Return full meal details
+    } else {
+      throw Exception("Failed to load meal details");
     }
   }
 }

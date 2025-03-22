@@ -1,15 +1,16 @@
-import 'dart:convert';
-
 class Quote {
   final String text;
   final String author;
 
-  Quote({required this.text, required this.author});
+  Quote({
+    required this.text,
+    required this.author,
+  });
 
-  factory Quote.fromJson(String str) => Quote.fromMap(json.decode(str)[0]);
-
-  factory Quote.fromMap(Map<String, dynamic> json) => Quote(
-        text: json["q"],
-        author: json["a"],
-      );
+  factory Quote.fromJson(Map<String, dynamic> json) {
+    return Quote(
+      text: json['q'] ?? "No quote available",
+      author: json['a'] ?? "Unknown",
+    );
+  }
 }

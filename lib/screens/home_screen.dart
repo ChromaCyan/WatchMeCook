@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:watchmecook/models/nav_cubit.dart';
 import 'package:watchmecook/screens/anime/anime_list.dart';
+import 'package:watchmecook/screens/quote/quote_list.dart';
+import 'package:watchmecook/screens/recipe/recipe_list.dart';
 import 'package:watchmecook/widgets/navigation/nav_bar.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -100,7 +102,8 @@ class _HomeScreenState extends State<HomeScreen> {
             },
             children: [
               AnimeScreen(),
-              // Add other screens here as needed
+              QuoteListScreen(),
+              MealListScreen(),
             ],
           ),
         ),
